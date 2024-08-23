@@ -38,11 +38,11 @@ public class BoardController {
         boardService.deleteBoard(id);
     }
     @PutMapping("/boards/title/{id}")
-    public ResponseEntity<BoardUpdateResponseDto> updateBoardTitle(@PathVariable Long id, @RequestBody BoardUpdateTitleRequestDto boardUpdateTitleRequestDto){
+    public ResponseEntity<BoardUpdateTitleResponseDto> updateBoardTitle(@PathVariable Long id, @RequestBody BoardUpdateTitleRequestDto boardUpdateTitleRequestDto){
         return ResponseEntity.ok(boardService.updateBoardTitle(id,boardUpdateTitleRequestDto));
     }
     @PutMapping("/boards/contents/{id}")
-    public ResponseEntity<BoardUpdateResponseDto> updateBoardContents(@PathVariable Long id, @RequestBody BoardUpdateContentsRequestDto boardUpdateContentsRequestDto){
+    public ResponseEntity<BoardUpdateContentsResponseDto> updateBoardContents(@PathVariable Long id, @RequestBody BoardUpdateContentsRequestDto boardUpdateContentsRequestDto){
         return ResponseEntity.ok(boardService.updateBoardContents(id,boardUpdateContentsRequestDto));
     }
 }

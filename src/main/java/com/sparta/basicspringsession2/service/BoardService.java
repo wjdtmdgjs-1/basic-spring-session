@@ -23,7 +23,7 @@ public class BoardService {
     public BoardSaveResponseDto saveBoard(BoardSaveRequestDto boardSaveRequestDto) {
         Board board = new Board(boardSaveRequestDto.getTitle(),boardSaveRequestDto.getContents());
         Board savedBoard = boardRepository.save(board);
-        return new BoardSaveResponseDto(savedBoard.getTitle(),savedBoard.getContents());
+        return new BoardSaveResponseDto(savedBoard.getId(), savedBoard.getTitle(),savedBoard.getContents());
     }
 
     public List<BoardSimpleResponseDto> getBoards() {
@@ -54,15 +54,15 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardUpdateResponseDto updateBoardTitle(Long id, BoardUpdateTitleRequestDto boardUpdateTitleRequestDto) {
+    public BoardUpdateTitleResponseDto updateBoardTitle(Long id, BoardUpdateTitleRequestDto boardUpdateTitleRequestDto) {
         Board board = boardRepository.findById(id).orElseThrow(()->new NullPointerException("보드가 없습니다."));
         board.updateTitle(boardUpdateTitleRequestDto.getTitle());
-        return new BoardUpdateResponseDto(board.getId(), board.getTitle(), board.getContents());
+        return new BoardUpdateTitleResponseDto(board.getId(), board.getTitle(), board.getContents());
     }
-
-    public BoardUpdateResponseDto updateBoardContents(Long id, BoardUpdateContentsRequestDto boardUpdateContentsRequestDto) {
+    @Transactional
+    public BoardUpdateContentsResponseDto updateBoardContents(Long id, BoardUpdateContentsRequestDto boardUpdateContentsRequestDto) {
         Board board = boardRepository.findById(id).orElseThrow(()->new NullPointerException("보드가 없습니다."));
         board.updateContents(boardUpdateContentsRequestDto.getContents());
-        return new BoardUpdateResponseDto(board.getId(), board.getTitle(), board.getContents());
+        return new BoardUpdateContentsResponseDto(board.getId(), board.getTitle(), board.getContents());
     }
 }
